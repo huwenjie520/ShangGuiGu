@@ -13,6 +13,7 @@ module.exports = defineConfig({
       alias: {
         "@": resolve('./src'),
         "@c": resolve('./src/components'),
+        "@p": resolve('./src/pages'),
       }
     }
   }

@@ -17,6 +17,7 @@ export default {
     Footer
   },
   mounted() {
+
   },
   methods: {
 
@@ -24,5 +25,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>
