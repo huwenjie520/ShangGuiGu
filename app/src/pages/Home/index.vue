@@ -29,10 +29,11 @@
         Floor,
         Brand
     },
+    computed: {
+    },
     mounted() {
     },
     methods: {
-  
     }
   }
   </script>

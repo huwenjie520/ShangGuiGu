@@ -14,7 +14,19 @@ module.exports = defineConfig({
         "@": resolve('./src'),
         "@c": resolve('./src/components'),
         "@p": resolve('./src/pages'),
+        "@a": resolve('./src/api'),
       }
     }
-  }
+  },
+  devServer: {
+    proxy: {
+        "/api": {
+            // 服务器目的地址
+            target: "http://gmall-h5-api.atguigu.cn",
+            // 重写路径
+            // pathRewrite: {"^/api": ""}
+            // changeOrigin: true,
+        },
+    },
+},
 })

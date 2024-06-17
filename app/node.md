@@ -74,6 +74,16 @@ const path = require('path')
 -main.js中注册
 -app.vue中 `<router-view></router-view>`
 
+3、axios
+
+安装：npm install --save axios
+
+封装：
+
+-路径：src-api-request.js
+
+-对请求和请求响应做统一的处理
+
 ### 六、插件
 
 1、vscode支持vue组件:vue-official
@@ -136,6 +146,41 @@ query参数
 
 -Vue.component(名称，组件)
 
+7、axios二次封装
+
+-request.js：封装请求拦截器和响应拦截器
+
+-index.js：API接口统一管理
+
+8、vuex二次封装
+
+安装：npm install vuex@3.6.2 --save
+
+引用、注册组件
+
+```
+1、使用state
+import {mapState} from 'vuex'
+...mapState(['count'])
+2、使用actions
+add() {
+  this.$store.dispatch('add')
+}
+  store文件夹下的index.js中
+add({commit}) {
+  commit('ADD')
+}
+3、使用mutations
+store文件夹下的index.js中
+ADD(state, count) {
+  state.count++
+}
+```
+
+如果数据很多，vuex支持使用模块化存储数据
+
+
+
 ### 面试题1:
 
 1、路由传参的时候（对象写法），path是否可以结合params参数一起使用
@@ -167,4 +212,4 @@ this.$router.push({
 
 -对象写法，额外的通过props给路由组件传递参数
 
--函数写法，可以传递params和
+-函数写法，可以传递params和query参数
