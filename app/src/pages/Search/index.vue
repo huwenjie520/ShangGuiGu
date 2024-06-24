@@ -1,6 +1,6 @@
 <template>
     <div>
-        搜索{{k1}}---{{k2}}
+        <TypeNav/>
     </div>
   </template>
   

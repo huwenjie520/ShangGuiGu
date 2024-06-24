@@ -2,7 +2,34 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <h2 class="all">全部商品分类</h2>
+      <div @mouseleave="leaveIndex" @mouseenter="enterIndex">
+        <h2 class="all">全部商品分类</h2>
+        <div class="sort" v-show="isShow">
+          <div class="all-sort-list2">
+            <div @mouseenter="changeIndex(index)" class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
+              :class="{ backColor: currentIndex === index }">
+              <h3>
+                <a href="">{{ c1.categoryName }}</a>
+              </h3>
+              <!-- 二级、三级分类 -->
+              <div class="item-list clearfix" :style="{ display: currentIndex === index ? 'block' : 'none' }">
+                <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
+                  <dl class="fore">
+                    <dt>
+                      <a href="">{{ c2.categoryName }}</a>
+                    </dt>
+                    <dd>
+                      <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
+                        <a href="">{{ c3.categoryName }}</a>
+                      </em>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -13,38 +40,22 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      <div class="sort">
-        <div class="all-sort-list2">
-          <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId">
-            <h3>
-              <a href="">{{c1.categoryName}}</a>
-            </h3>
-            <div class="item-list clearfix">
-              <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
-                <dl class="fore">
-                  <dt>
-                    <a href="">{{c2.categoryName}}</a>
-                  </dt>
-                  <dd>
-                    <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
-                      <a href="">{{ c3.categoryName }}</a>
-                    </em>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
+import throttle from 'lodash/throttle'
 
 export default {
   name: 'TypeNav',
+  data() {
+    return {
+      currentIndex: -1,
+      isShow: true
+    }
+  },
   computed: {
     ...mapState({
       categoryList: (state) => {
@@ -53,7 +64,24 @@ export default {
     })
   },
   mounted() {
-    this.$store.dispatch('categoryList')
+    
+  },
+  methods: {
+    // 鼠标放上去后，改变index值
+    changeIndex: throttle(function(index) {
+      this.currentIndex = index
+    }, 50),
+    leaveIndex() {
+      this.currentIndex = -1
+      if (this.$route.path != 'home') {
+        this.isShow = false
+      }
+    },
+    enterIndex() {
+      if (this.$route.path != 'home') {
+        this.isShow = true
+      }
+    }
   }
 }
 </script>
@@ -115,7 +143,6 @@ export default {
           }
 
           .item-list {
-            display: none;
             position: absolute;
             width: 734px;
             min-height: 460px;
@@ -170,11 +197,17 @@ export default {
           }
 
           &:hover {
-            .item-list {
-              display: block;
-            }
+            .item-list {}
           }
         }
+
+        .backColor {
+          background-color: pink;
+        }
+
+        // .item:hover {
+        //   background-color: pink;
+        // }
       }
     }
   }

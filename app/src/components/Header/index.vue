@@ -65,10 +65,7 @@
                 name: 'search',
                 params: {
                     // key: '' || undefined
-                    key: this.keyword
-                },
-                query: {
-                    keyword: this.keyword
+                    key: this.keyword || undefined
                 }
             })
         }
