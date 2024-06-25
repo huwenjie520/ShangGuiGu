@@ -5,22 +5,22 @@
       <div @mouseleave="leaveIndex" @mouseenter="enterIndex">
         <h2 class="all">全部商品分类</h2>
         <div class="sort" v-show="isShow">
-          <div class="all-sort-list2">
+          <div class="all-sort-list2" @click="goSearch">
             <div @mouseenter="changeIndex(index)" class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
               :class="{ backColor: currentIndex === index }">
               <h3>
-                <a href="">{{ c1.categoryName }}</a>
+                <a :data-categoryName="c1.categoryName" :data-categoryId1="c1.categoryId">{{ c1.categoryName }}</a>
               </h3>
               <!-- 二级、三级分类 -->
               <div class="item-list clearfix" :style="{ display: currentIndex === index ? 'block' : 'none' }">
                 <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
                   <dl class="fore">
                     <dt>
-                      <a href="">{{ c2.categoryName }}</a>
+                      <a :data-categoryName="c2.categoryName" :data-categoryId2="c2.categoryId">{{ c2.categoryName }}</a>
                     </dt>
                     <dd>
                       <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
-                        <a href="">{{ c3.categoryName }}</a>
+                        <a :data-categoryName="c3.categoryName" :data-categoryId3="c3.categoryId">{{ c3.categoryName }}</a>
                       </em>
                     </dd>
                   </dl>
@@ -73,13 +73,33 @@ export default {
     }, 50),
     leaveIndex() {
       this.currentIndex = -1
-      if (this.$route.path != 'home') {
+      if (this.$route.path != '/home') {
         this.isShow = false
       }
     },
     enterIndex() {
-      if (this.$route.path != 'home') {
+      if (this.$route.path !== '/home') {
         this.isShow = true
+      }
+    },
+    goSearch(event) {
+      // 获取当前触发事件的元素
+      let target = event.target
+      let { categoryname, categoryid1, categoryid2, categoryid3 } = target.dataset
+      if (categoryname) {
+        let location = {
+          name: 'search'
+        }
+        let query = { categoryname: categoryname }
+        if (categoryid1) {
+          query.categoryid1 = categoryid1
+        } else if (categoryid2) {
+          query.categoryid2 = categoryid2
+        } else {
+          query.categoryid3 = categoryid3
+        }
+        location.query = query
+        this.$router.push(location)
       }
     }
   }
