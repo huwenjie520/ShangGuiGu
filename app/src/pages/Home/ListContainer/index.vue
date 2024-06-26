@@ -103,6 +103,9 @@
 <script>
   export default {
     name: 'ListContainer',
+    mounted() {
+      this.$store.dispatch('bannerList')
+    }
   }
 </script>
 

@@ -199,6 +199,21 @@ ADD(state, count) {
 
 节流：用户操作很频繁，把频繁的操作变为少量的操作【可以给浏览器充裕的时间解析代码】
 
+12、过渡效果
+
+居然使用 `<transition>标签`
+
+13、mockjs使用步骤
+
+-mock文件夹，模拟远程服务，返回数据
+
+-main.js，在入口文件引入mockServe.js
+
+-public文件夹，存放图片
+
+-api文件，封装mock请求方法
+
+-listContainer中请求bannerList数据
 
 
 ### 面试题1:
