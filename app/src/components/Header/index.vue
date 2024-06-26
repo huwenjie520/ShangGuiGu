@@ -61,13 +61,17 @@
             // 1、字符串写法
             // this.$router.push('/search/' + this.keyword + '?k=' + this.keyword)
             // 2、对象写法
-            this.$router.push({
+            let location = {
                 name: 'search',
                 params: {
                     // key: '' || undefined
                     key: this.keyword || undefined
                 }
-            })
+            }
+            if (this.$route.query) {
+                location.query = this.$route.query
+            }
+            this.$router.push(location)
         }
     }
   }

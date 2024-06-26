@@ -4,7 +4,8 @@
     <div class="container">
       <div @mouseleave="leaveIndex" @mouseenter="enterIndex">
         <h2 class="all">全部商品分类</h2>
-        <div class="sort" v-show="isShow">
+        <transition name="sort">
+          <div class="sort" v-show="isShow">
           <div class="all-sort-list2" @click="goSearch">
             <div @mouseenter="changeIndex(index)" class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
               :class="{ backColor: currentIndex === index }">
@@ -29,6 +30,7 @@
             </div>
           </div>
         </div>
+        </transition>
       </div>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -64,6 +66,9 @@ export default {
     })
   },
   mounted() {
+    if (this.$route.path !== '/home') {
+      this.isShow = false
+    }
     
   },
   methods: {
@@ -99,6 +104,9 @@ export default {
           query.categoryid3 = categoryid3
         }
         location.query = query
+        if (this.$route.params) {
+          location.params = this.$route.params
+        }
         this.$router.push(location)
       }
     }
@@ -229,6 +237,18 @@ export default {
         //   background-color: pink;
         // }
       }
+    }
+    // 过渡动画开始状态
+    .sort-enter {
+      height: 0;
+    }
+    // 过渡动画结束状态
+    .sort-enter-to {
+      height: 461px;
+    }
+    // 定义动画时间，速率
+    .sort-enter-active {
+      transition: all .5s linear;
     }
   }
 }
