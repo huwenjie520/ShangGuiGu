@@ -1,8 +1,9 @@
-import {reqCategoryList, reqGetBannerList} from '@/api'
+import {reqCategoryList, reqGetBannerList, reqGetFloorList} from '@/api'
 
 const state = {
     categoryList: [],
-    bannerList: []
+    bannerList: [],
+    floorList: []
 }
 const mutations = {
     CATEGORYLIST(state, list) {
@@ -10,6 +11,9 @@ const mutations = {
     },
     BANNERLIST(state, list) {
         state.bannerList = list
+    },
+    FLOORLIST(state, list) {
+        state.floorList = list
     }
 }
 const actions = {
@@ -23,6 +27,12 @@ const actions = {
         let res = await reqGetBannerList()
         if (res.code = 200) {
             commit('BANNERLIST', res.data)
+        }
+    },
+    async floorList({commit}) {
+        let res = await reqGetFloorList()
+        if (res.code === 200) {
+            commit('FLOORLIST', res.data)
         }
     }
 }

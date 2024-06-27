@@ -5,13 +5,14 @@
         <Recommend/>
         <Rank/>
         <Like/>
-        <Floor/>
-        <Floor/>
+        <Floor v-for="(list, index) in floorList" :floorData="list"/>
         <Brand/>
     </div>
   </template>
   
   <script>
+  import { mapState } from 'vuex'
+
   import ListContainer from '@p/Home/ListContainer'
   import Recommend from '@p/Home/TodayRecommend'
   import Rank from '@p/Home/Rank'
@@ -30,8 +31,12 @@
         Brand
     },
     computed: {
+        ...mapState({
+            floorList: (state) => state.home.floorList
+        })
     },
     mounted() {
+        this.$store.dispatch('floorList')
     },
     methods: {
     }

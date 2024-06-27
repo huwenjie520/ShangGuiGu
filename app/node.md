@@ -18,10 +18,10 @@ npm run serve
 node_modules:项目依赖
 public：公共文件（一般为图片），webpack打包时，会原封不动打包到dist文件中
 src
-assets: 放置静态资源，一般放置多个组件公用的静态资源
-components：全局组件（非路由组件）
-app.vue：唯一的根组件
-main.js：程序入口文件，也是整个程序中最先执行的文件
+    assets: 放置静态资源，一般放置多个组件公用的静态资源
+    components：全局组件（非路由组件）
+    app.vue：唯一的根组件
+    main.js：程序入口文件，也是整个程序中最先执行的文件
 
 ### 四、相关配置
 

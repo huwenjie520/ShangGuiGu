@@ -7,6 +7,7 @@ import store from './store'
 // 注册全局组件
 import TypeNav from '@c/TypeNav'
 import '@/mock/mockServe'
+import "swiper/css/swiper.css"
 Vue.component(TypeNav.name, TypeNav)
 
 Vue.config.productionTip = false
