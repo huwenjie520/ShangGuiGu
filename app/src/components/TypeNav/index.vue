@@ -10,18 +10,18 @@
             <div @mouseenter="changeIndex(index)" class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId"
               :class="{ backColor: currentIndex === index }">
               <h3>
-                <a :data-categoryName="c1.categoryName" :data-categoryId1="c1.categoryId">{{ c1.categoryName }}</a>
+                <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{ c1.categoryName }}</a>
               </h3>
               <!-- 二级、三级分类 -->
               <div class="item-list clearfix" :style="{ display: currentIndex === index ? 'block' : 'none' }">
                 <div class="subitem" v-for="(c2, index) in c1.categoryChild" :key="c2.categoryId">
                   <dl class="fore">
                     <dt>
-                      <a :data-categoryName="c2.categoryName" :data-categoryId2="c2.categoryId">{{ c2.categoryName }}</a>
+                      <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{ c2.categoryName }}</a>
                     </dt>
                     <dd>
                       <em v-for="(c3, index) in c2.categoryChild" :key="c3.categoryId">
-                        <a :data-categoryName="c3.categoryName" :data-categoryId3="c3.categoryId">{{ c3.categoryName }}</a>
+                        <a :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{ c3.categoryName }}</a>
                       </em>
                     </dd>
                   </dl>
@@ -90,18 +90,18 @@ export default {
     goSearch(event) {
       // 获取当前触发事件的元素
       let target = event.target
-      let { categoryname, categoryid1, categoryid2, categoryid3 } = target.dataset
+      let { categoryname, category1Id, category2Id, category3Id } = target.dataset
       if (categoryname) {
         let location = {
           name: 'search'
         }
-        let query = { categoryname: categoryname }
-        if (categoryid1) {
-          query.categoryid1 = categoryid1
-        } else if (categoryid2) {
-          query.categoryid2 = categoryid2
+        let query = { categoryName: categoryname }
+        if (category1Id) {
+          query.category1Id = category1Id
+        } else if (category2Id) {
+          query.category2Id = category2Id
         } else {
-          query.categoryid3 = categoryid3
+          query.category3Id = category3Id
         }
         location.query = query
         if (this.$route.params) {

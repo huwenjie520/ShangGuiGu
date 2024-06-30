@@ -35,7 +35,7 @@ var routes = [
     {
         name: 'search',
         // ？表示key参数可传可不传，如果不加？，那么必须要通过params方式传递key参数
-        path: '/search/:key?',
+        path: '/search/:keyword?',
         component: () => import('../pages/Search'),
         meta: {
             show: true
@@ -45,12 +45,12 @@ var routes = [
         // 对象写法
         // props: {a:1, b:2}
         // 函数写法
-        props: ($route) => {
-            return {
-                k1: $route.params.key,
-                k2: $route.query.keyword
-            }
-        }
+        // props: ($route) => {
+        //     return {
+        //         k1: $route.params.key,
+        //         k2: $route.query.keyword
+        //     }
+        // }
     },
     {
         path: '/login',

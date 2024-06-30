@@ -8,3 +8,5 @@ export const reqCategoryList = ()=>requests({url:'/product/getBaseCategoryList',
 export const reqGetBannerList = () => mockRequests({url: '/banner', method: 'get'})
 // 获取floor组件数据
 export const reqGetFloorList = () => mockRequests({url: '/floor', method: 'get'})
+// 获取搜索页数据
+export const reqGetSearchInfo = (params) => requests({url: '/list', method: 'post', data: params})

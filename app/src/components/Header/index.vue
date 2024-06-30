@@ -65,7 +65,7 @@
                 name: 'search',
                 params: {
                     // key: '' || undefined
-                    key: this.keyword || undefined
+                    keyword: this.keyword || undefined
                 }
             }
             if (this.$route.query) {
