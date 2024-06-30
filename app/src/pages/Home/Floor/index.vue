@@ -21,19 +21,7 @@
               <img :src="floorData.images[0]" />
             </div>
             <div class="floorBanner">
-              <div class="swiper-container" id="floor1Swiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide" v-for="(img, index) in floorData.carousel" :key="index">
-                    <img :src="img">
-                  </div>
-                </div>
-                <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
-
-                <!-- 如果需要导航按钮 -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-              </div>
+              <Carousel :list="carouselLists" />
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
@@ -64,29 +52,22 @@
 </template>
 
 <script>
-import Swiper from 'swiper'
 export default {
   name: 'Floor',
   props: ['floorData'],
+  data() {
+    return {
+      carouselLists: {}
+    }
+  },
   computed: {
   },
   mounted() {
-    // 使用Swiper插件，初始化swiper
-    var mySwiper = new Swiper(".swiper-container", {
-      autoplay: true, // 自动切换
-      loop: true, // 循环模式选项
-      // 如果需要分页器
-      pagination: {
-        el: ".swiper-pagination",
-        // 点击圆点切换图片
-        clickable: true,
-      },
-      // 如果需要前进后退按钮
-      navigation: {
-        prevEl: ".swiper-button-prev",
-        nextEl: ".swiper-button-next",
-      },
-    });
+    this.carouselLists = this.floorData.carousel.map((item, index) => {
+      let carouselList = {imgUrl: item}
+      carouselList.id = index
+      return carouselList
+    })
   }
 }
 </script>

@@ -6,9 +6,11 @@ import router from './router/index'
 import store from './store'
 // 注册全局组件
 import TypeNav from '@c/TypeNav'
+import Carousel from '@c/Carousel'
 import '@/mock/mockServe'
 import "swiper/css/swiper.css"
 Vue.component(TypeNav.name, TypeNav)
+Vue.component(Carousel.name, Carousel)
 
 Vue.config.productionTip = false
 
