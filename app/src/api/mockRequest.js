@@ -8,7 +8,6 @@ const mockRequests = axios.create({
 
 // 请求拦截器:
 mockRequests.interceptors.request.use((config) => {
-    console.log(222, config)
     return config
 })
 

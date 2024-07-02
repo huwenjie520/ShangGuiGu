@@ -11,15 +11,15 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-if="searchParams.categoryName">{{searchParams.categoryName}}<i @click="removeCategoryName">×</i></li>
+            <li class="with-x" v-if="searchParams.keyword">{{searchParams.keyword}}<i @click="removeKeyword">×</i></li>
+            <li class="with-x" v-if="searchParams.trademark">{{searchParams.trademark.split(':')[1]}}<i @click="removeTradeMark">×</i></li>
+            <li class="with-x" v-if="searchParams.props.length" v-for="(props, index) in searchParams.props" :key="index">{{props.split(':')[1]}}<i @click="removeAttr(index)">×</i></li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector  @tradeMarkInfo="tradeMarkInfo" @getAttrInfo="getAttrInfo"/>
 
         <!--details-->
         <div class="details clearfix">
@@ -137,7 +137,8 @@ export default {
         props: [],
         // 品牌
         trademark: ""
-      }
+      },
+      brand: ''
     }
   },
   computed: {
@@ -157,12 +158,65 @@ export default {
       if (newVal) {
         Object.assign(this.searchParams, this.$route.query, this.$route.params)
         this.getData()
+        // 参数非必传，请求接口后将参数置空
+        this.searchParams.category1Id = ''
+        this.searchParams.category2Id = ''
+        this.searchParams.category3Id = ''
       }
     }
   },
   methods: {
     getData() {
       this.$store.dispatch('getSearchInfo', this.searchParams)
+    },
+    // 面包屑删除categoryName
+    removeCategoryName() {
+      // 重新发送请求
+      this.searchParams.categoryName = undefined
+      this.searchParams.category1Id = undefined
+      this.searchParams.category2Id = undefined
+      this.searchParams.category3Id = undefined
+      this.getData()
+
+      // 修改地址，并重新跳转
+      if (this.$route.params) {
+        this.$router.push({
+          name: 'search',
+          params: this.$route.params
+        })
+      }
+    },
+    removeKeyword() {
+      this.searchParams.keyword = undefined
+      this.getData()
+
+      this.$bus.$emit('clear')
+
+      if (this.$route.query) {
+        this.$router.push({
+          name: 'search',
+          query: this.$route.query
+        })
+      }
+    },
+    tradeMarkInfo(trademark) {
+      this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`
+      this.getData()
+    },
+    removeTradeMark() {
+      this.searchParams.trademark = undefined
+      this.getData()
+    },
+    getAttrInfo(attrs, val) {
+      let props = `${attrs.attrId}:${val}:${attrs.attrName}`
+      if(this.searchParams.props.indexOf(props) === -1) {
+        this.searchParams.props.push(props)
+      }
+      this.getData()
+    },
+    removeAttr(index) {
+      this.searchParams.props.splice(index, 1)
+      this.getData()
     }
   }
 }

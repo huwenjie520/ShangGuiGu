@@ -90,18 +90,18 @@ export default {
     goSearch(event) {
       // 获取当前触发事件的元素
       let target = event.target
-      let { categoryname, category1Id, category2Id, category3Id } = target.dataset
+      let { categoryname, category1id = '', category2id = '', category3id = '' } = target.dataset
       if (categoryname) {
         let location = {
           name: 'search'
         }
         let query = { categoryName: categoryname }
-        if (category1Id) {
-          query.category1Id = category1Id
-        } else if (category2Id) {
-          query.category2Id = category2Id
+        if (category1id) {
+          query.category1Id = category1id
+        } else if (category2id) {
+          query.category2Id = category2id
         } else {
-          query.category3Id = category3Id
+          query.category3Id = category3id
         }
         location.query = query
         if (this.$route.params) {
