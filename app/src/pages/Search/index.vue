@@ -209,12 +209,18 @@ export default {
     },
     getAttrInfo(attrs, val) {
       let props = `${attrs.attrId}:${val}:${attrs.attrName}`
+      // 数组去重
+      // 数组中不存在元素，则添加
       if(this.searchParams.props.indexOf(props) === -1) {
         this.searchParams.props.push(props)
       }
       this.getData()
     },
     removeAttr(index) {
+      // splice()函数
+      // splice(1) 直接删除1个元素
+      // splice(1, 2) 从index=1处删除2个元素
+      // splice(1, 2, 3) 从index=1处删除2个元素，添加元素3
       this.searchParams.props.splice(index, 1)
       this.getData()
     }
