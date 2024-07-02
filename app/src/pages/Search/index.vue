@@ -221,6 +221,8 @@ export default {
       // splice(1) 直接删除1个元素
       // splice(1, 2) 从index=1处删除2个元素
       // splice(1, 2, 3) 从index=1处删除2个元素，添加元素3
+      // 需要注意的是 splice()修改原数组 但它返回的结果是删除元素后的结果
+      // 比如[1, 2, 3].splice(1, 1) 返回的是[1]
       this.searchParams.props.splice(index, 1)
       this.getData()
     }
