@@ -26,23 +26,17 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{'active': isOne}" @click="switchTab(1)">
+                  <a href="#">
+                    综合
+                    <span v-show="isOne" class="iconfont" :class="{'icon-up':isUp, 'icon-down': isDown}"></span>
+                  </a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li :class="{'active': isTwo}" @click="switchTab(2)">
+                  <a href="#">
+                    价格
+                    <span v-show="isTwo" class="iconfont" :class="{'icon-up': isUp, 'icon-down': isDown}"></span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -128,7 +122,7 @@ export default {
         // 关键字
         keyword: "",
         // 排序
-        order: "",
+        order: "1:desc",
         // 分页器用的：代表当前是第几页
         pageNo: 1,
         // 代表每一页展示的数据个数
@@ -142,7 +136,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['goodsList'])
+    ...mapGetters(['goodsList']),
+    isOne() {
+      return this.searchParams.order.indexOf('1') !== -1
+    },
+    isTwo() {
+      return this.searchParams.order.indexOf('2') !== -1
+    },
+    isUp() {
+      return this.searchParams.order.indexOf('asc') !== -1
+    },
+    isDown() {
+      return this.searchParams.order.indexOf('desc') !== -1
+    }
   },
   components: {
     SearchSelector
@@ -224,6 +230,20 @@ export default {
       // 需要注意的是 splice()修改原数组 但它返回的结果是删除元素后的结果
       // 比如[1, 2, 3].splice(1, 1) 返回的是[1]
       this.searchParams.props.splice(index, 1)
+      this.getData()
+    },
+    switchTab(index) {
+      let originIndex = this.searchParams.order.split(':')[0]
+      let originOrder = this.searchParams.order.split(':')[1]
+      let newOrder = ''
+      // 如果点击的index等于原来的index，比如在‘综合’上点击‘综合’，则调整箭头的方向
+      if (index == originIndex) {
+        newOrder = `${originIndex}:${originOrder === 'asc' ? 'desc' : 'asc'}`
+      } else {
+        // 如果点击的index不等于原来的index，比如在‘综合’上点击‘价格’，则默认降序展示
+        newOrder = `${index}:${'desc'}`
+      }
+      this.searchParams.order = newOrder
       this.getData()
     }
   }
