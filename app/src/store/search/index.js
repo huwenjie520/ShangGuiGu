@@ -23,6 +23,9 @@ const getters = {
     goodsList() {
         return state.searchInfo.goodsList
     },
+    total() {
+        return state.searchInfo.total
+    },
     trademarkList() {
         return state.searchInfo.trademarkList
     }
