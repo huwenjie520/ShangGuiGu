@@ -66,11 +66,23 @@ var routes = [
             show: false
         }
     },
+    {
+        path: '/detail/:skuId',
+        component: () => import('../pages/Detail'),
+        meta: {
+            show: false
+        }
+    },
 ]
 
 const router = new VueRouter({
     base: '/',
-    routes
+    routes,
+    // 当前项目问题：从搜索路由切换到详情路由，页面处于底部，想要页面处于顶部，就需要一些配置。
+    scrollBehavior (to, from, savedPosition) {
+        // 从搜索路由切换到详情路由，滚动条在最上方，即页面在顶部
+        return { y: 0 }
+    }
 })
 
 export default router

@@ -18,10 +18,10 @@ npm run serve
 node_modules:项目依赖
 public：公共文件（一般为图片），webpack打包时，会原封不动打包到dist文件中
 src
-    assets: 放置静态资源，一般放置多个组件公用的静态资源
-    components：全局组件（非路由组件）
-    app.vue：唯一的根组件
-    main.js：程序入口文件，也是整个程序中最先执行的文件
+assets: 放置静态资源，一般放置多个组件公用的静态资源
+components：全局组件（非路由组件）
+app.vue：唯一的根组件
+main.js：程序入口文件，也是整个程序中最先执行的文件
 
 ### 四、相关配置
 
@@ -101,6 +101,10 @@ const path = require('path')
 1、`<router-view>和<router-link>`
 
 `router-link`导航作用，`router-view`组件内容渲染作用
+
+to使用模板字符串写法
+
+`<router-link :to="`/detail/${goods.id}`"></router-link>`
 
 2、路由元信息可控制组件显示与隐藏
 
@@ -215,6 +219,15 @@ ADD(state, count) {
 
 -listContainer中请求bannerList数据
 
+14、滚动行为：路由切换时，指定页面处于的位置
+
+方法：使用vue-router中的 `scrollBehavior`指定纵坐标位置
+
+15、异常情况的兜底
+
+16、排他操作：所有置为0，当前对象置为1
+
+17、offsetX和offsetWidth的属性，以及js中给style赋值的操作
 
 ### 面试题1:
 

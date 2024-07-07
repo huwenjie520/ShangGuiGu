@@ -10,3 +10,5 @@ export const reqGetBannerList = () => mockRequests({url: '/banner', method: 'get
 export const reqGetFloorList = () => mockRequests({url: '/floor', method: 'get'})
 // 获取搜索页数据
 export const reqGetSearchInfo = (params) => requests({url: '/list', method: 'post', data: params})
+// 获取详情页数据
+export const reqDetailInfo = (skuId) => requests({url: `/item/${skuId}`, method: "get"})
