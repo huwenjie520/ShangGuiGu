@@ -28,6 +28,7 @@ var routes = [
     {
         path: '/home',
         component: () => import('../pages/Home'),
+        // 是否显示footer组件
         meta: {
             show: true
         }
@@ -71,6 +72,13 @@ var routes = [
         component: () => import('../pages/Detail'),
         meta: {
             show: false
+        }
+    },
+    {
+        path: '/addCartSuccess',
+        component: () => import('../pages/AddCartSuccess'),
+        meta: {
+            show: true
         }
     },
 ]

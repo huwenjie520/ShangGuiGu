@@ -1,4 +1,4 @@
-import {reqDetailInfo} from '@a/index' 
+import {reqDetailInfo, reqAddCartSuccess} from '@a/index' 
 const state = {
     goodsInfo: {}
 }
@@ -12,6 +12,14 @@ const actions = {
         const res = await reqDetailInfo(skuId)
         if (res.code === 200) {
             commit('GETDETAILINFO', res.data)
+        }
+    },
+    async addCartSuccess({commit}, {skuId, skuNum}) {
+        const res = await reqAddCartSuccess(skuId, skuNum)
+        if (res.code === 200) {
+            return 'ok'
+        } else {
+            return Promise.reject(new Error('fail'))
         }
     }
 }

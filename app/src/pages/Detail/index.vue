@@ -79,7 +79,7 @@
                 <a href="javascript:" class="mins" @click="skuNum>1?skuNum--:1">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="addCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -373,6 +373,22 @@
           value = parseInt(value)
         }
         this.skuNum = value
+      },
+      async addCart() {
+        try {
+          // 因为返回结果是promise，如果需要等待结果，则使用await
+          await this.$store.dispatch('addCartSuccess', {skuId:this.$route.params.skuId, skuNum: this.skuNum})
+          // 如果成功，则进行路由跳转，并将产品信息 带给 添加到购物车成功组件
+          sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo))
+          this.$router.push({
+            path: '/AddCartSuccess',
+            query: {
+              skuNum: this.skuNum
+            }
+          })
+        } catch(e) {
+          console.log("e:", e)
+        }
       }
     }
   }
