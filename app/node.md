@@ -229,6 +229,18 @@ ADD(state, count) {
 
 17、offsetX和offsetWidth的属性，以及js中给style赋值的操作
 
+18、async声明的函数为promise，如果需要等待async的结果，则需要使用await
+
+19、sessionStorage，会话存储，只存储于当前页面
+
+20、shopcart静态页面，请求购物车列表数据
+但是，购物车列表需要知道用户身份对应下的购物车，所以需要游客身份
+利用uuid生成唯一性表示标识
+步骤：
+a.封装公共方法，使用localStorage存储uuid_token，如果没有uuid_token，则生成uuid_token，存入localStorage并返回
+b.detail的state中调用公共方法生成uuid_token
+c.api的requests.js中在请求头上统一带上userTempId
+
 ### 面试题1:
 
 1、路由传参的时候（对象写法），path是否可以结合params参数一起使用

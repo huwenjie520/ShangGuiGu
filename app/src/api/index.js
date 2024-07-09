@@ -14,3 +14,5 @@ export const reqGetSearchInfo = (params) => requests({url: '/list', method: 'pos
 export const reqDetailInfo = (skuId) => requests({url: `/item/${skuId}`, method: "get"})
 // 添加到购物车
 export const reqAddCartSuccess = (skuId, skuNum) => requests({url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post'})
+// 获取购物车列表
+export const reqCartList = () => requests({url: '/cart/cartList', method: 'get'})

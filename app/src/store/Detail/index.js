@@ -1,6 +1,8 @@
 import {reqDetailInfo, reqAddCartSuccess} from '@a/index' 
+import { getUuid } from '@/utils'
 const state = {
-    goodsInfo: {}
+    goodsInfo: {},
+    uuid: getUuid()
 }
 const mutations = {
     GETDETAILINFO(state, data) {

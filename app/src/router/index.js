@@ -81,6 +81,13 @@ var routes = [
             show: true
         }
     },
+    {
+        path: '/shopCart',
+        component: () => import('../pages/ShopCart'),
+        meta: {
+            show: true
+        }
+    },
 ]
 
 const router = new VueRouter({
