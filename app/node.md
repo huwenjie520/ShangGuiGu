@@ -240,6 +240,7 @@ ADD(state, count) {
 a.封装公共方法，使用localStorage存储uuid_token，如果没有uuid_token，则生成uuid_token，存入localStorage并返回
 b.detail的state中调用公共方法生成uuid_token
 c.api的requests.js中在请求头上统一带上userTempId
+21、every()函数，判断数组中的每一项是否符合要求，有一项不符合，则返回false
 
 ### 面试题1:
 

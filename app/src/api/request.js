@@ -13,7 +13,6 @@ requests.interceptors.request.use((config) => {
         // config.headers.userTempId = store.state.detail.uuid
         config.headers.userTempId = '3882d940-c10a-46cf-bb0a-6c25057b17';
     }
-    console.log(config.headers)
     return config
 })
 
