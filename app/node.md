@@ -241,6 +241,16 @@ a.封装公共方法，使用localStorage存储uuid_token，如果没有uuid_tok
 b.detail的state中调用公共方法生成uuid_token
 c.api的requests.js中在请求头上统一带上userTempId
 21、every()函数，判断数组中的每一项是否符合要求，有一项不符合，则返回false
+22、
+forEach()：循环遍历数组，循环不会中止
+map()：对数组的每一项进行处理，返回新的数组
+filter()：根据某个条件，过滤数组，返回新的数组
+find()：根据某个条件，找到第一个符合条件的元素，返回元素
+every()：根据某个条件，判断数组中是否每一项都符合条件，返回布尔值
+23、click事件和change事件都有event
+event.target.value和event.target.checked
+24、删除全部选中的商品：使用promise.all
+
 
 ### 面试题1:
 
