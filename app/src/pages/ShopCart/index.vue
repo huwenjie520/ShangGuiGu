@@ -13,7 +13,7 @@
       <div class="cart-body">
         <ul class="cart-list" v-for="(card, index) in cartInfoList" :key="card.id">
           <li class="cart-list-con1">
-            <input type="checkbox" name="chk_list" :checked="card.isChecked==1">
+            <input type="checkbox" name="chk_list" :checked="card.isChecked==1" @change="updateCartState(card, $event)">
           </li>
           <li class="cart-list-con2">
             <img src="./images/goods1.png">
@@ -23,15 +23,15 @@
             <span class="price">{{ card.skuPrice }}.00</span>
           </li>
           <li class="cart-list-con5">
-            <a href="javascript:void(0)" class="mins">-</a>
-            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
-            <a href="javascript:void(0)" class="plus">+</a>
+            <a href="javascript:void(0)" class="mins" @click="handleCartNum('minus', -1, card)">-</a>
+            <input autocomplete="off" type="text" :value="card.skuNum" minnum="1" class="itxt" @change="handleCartNum('update', $event.target.value * 1, card)">
+            <a href="javascript:void(0)" class="plus" @click="handleCartNum('add', 1, card)">+</a>
           </li>
           <li class="cart-list-con6">
             <span class="sum">{{card.skuNum * card.skuPrice}}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#none" class="sindelet">删除</a>
+            <a class="sindelet" @click="deleteCart(card)">删除</a>
             <br>
             <a href="#none">移到收藏</a>
           </li>
@@ -40,11 +40,11 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked="isAllChecked">
+        <input class="chooseAll" type="checkbox" :checked="isAllChecked && cartInfoList.length > 0" @click="updateAllCartChecked">
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a @click="deleteAllCheckedCart">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -92,6 +92,54 @@ import { mapGetters } from 'vuex';
     methods: {
       getData() {
         this.$store.dispatch('getShopCartData')
+      },
+      handleCartNum: async function(type, num, cart) {
+        let disNum
+        switch (type) {
+          case 'minus':
+            disNum = cart.skuNum > 1? num: 0
+            break
+          case 'add':
+            disNum = num
+            break
+          case 'update':
+            if (isNaN(num) || num < 0) {
+              disNum = 0
+            } else {
+              disNum = parseInt(num) - cart.skuNum
+            }
+            break
+        } 
+        await this.$store.dispatch('addCartSuccess', {skuId: cart.skuId, skuNum: disNum})
+        this.getData()
+      },
+      // 删除商品
+      async deleteCart(cart) {
+        await this.$store.dispatch('deleteCart', cart.skuId)
+        this.getData()
+      },
+      // 改变商品状态
+      async updateCartState(cart, event) {
+        await this.$store.dispatch('updateCart', {skuId: cart.skuId, isChecked: event.target.checked?'1':'0'})
+        this.getData()
+      },
+      // 删除所有选中的商品
+      async deleteAllCheckedCart() {
+        try {
+          await this.$store.dispatch('deleteAllCheckedCart')
+          this.getData()
+        }catch(err) {
+          alert(err)
+        }
+      },
+      async updateAllCartChecked(event) {
+        let isChecked = event.target.checked?1:0
+        try {
+          await this.$store.dispatch('updateAllCheckCart', isChecked)
+          this.getData()
+        }catch(err) {
+          alert(123)
+        }
       }
     }
   }

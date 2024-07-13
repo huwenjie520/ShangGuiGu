@@ -16,3 +16,7 @@ export const reqDetailInfo = (skuId) => requests({url: `/item/${skuId}`, method:
 export const reqAddCartSuccess = (skuId, skuNum) => requests({url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post'})
 // 获取购物车列表
 export const reqCartList = () => requests({url: '/cart/cartList', method: 'get'})
+// 删除某个商品
+export const reqDeleteCart = (skuId) => requests({url: `/cart/deleteCart/${skuId}`, method: 'delete'})
+// 修改某个产品状态
+export const reqUpdateCart = (skuId, isChecked) => requests({url: `/cart/checkCart/${skuId}/${isChecked}`, methods: 'get'})
